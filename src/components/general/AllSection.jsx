@@ -41,7 +41,7 @@ export default function AllSection() {
           Todos los episodios
         </h2>
         <p className="mt-3 max-w-xl text-base text-gris/70">
-          Elegí una temporada y metete.<span className="sr-only"> Al abrir una temporada se cierra la otra.</span>
+          Elegí una temporada.<span className="sr-only"> Al abrir una temporada se cierra la otra.</span>
         </p>
 
         <div className="mt-8 flex flex-col gap-3">

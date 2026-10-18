@@ -16,10 +16,10 @@
   },
   "contacto": {
     "campos": [
-      { "id": "nombre", "etiqueta": "¿Cómo te llamás?", "opcional": false },
-      { "id": "correo", "etiqueta": "¿A dónde te respondemos?", "opcional": false },
-      { "id": "asunto", "etiqueta": "¿De qué querés hablar?", "opcional": false },
-      { "id": "mensaje", "etiqueta": "Contanos (si querés)", "opcional": true }
+      { "id": "nombre", "etiqueta": "Nombre", "opcional": false },
+      { "id": "correo", "etiqueta": "Correo electrónico", "opcional": false },
+      { "id": "asunto", "etiqueta": "Asunto", "opcional": false },
+      { "id": "mensaje", "etiqueta": "Mensaje", "opcional": true }
     ]
   },
   "copyright": "Copyright © 2026"
