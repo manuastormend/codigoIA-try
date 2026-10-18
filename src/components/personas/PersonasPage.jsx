@@ -51,20 +51,20 @@ export default function PersonasPage({ persona, onCerrar }) {
         role="dialog"
         aria-modal="true"
         aria-label={persona.nombre}
-        className="relative w-full max-w-3xl border-2 border-gris/20 bg-noche/60 text-gris shadow-[10px_10px_0_0_rgba(196,253,54,0.15)] backdrop-blur-xl"
+        className="tx tx-puntos relative w-full max-w-3xl rounded-3xl border border-gris/20 bg-noche/70 text-gris shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl"
       >
         <button
           ref={botonCerrar}
           type="button"
           onClick={onCerrar}
           aria-label="Cerrar"
-          className="absolute right-3 top-3 z-10 grid h-10 w-10 place-items-center border-2 border-gris/30 bg-noche/40 font-mono text-lg transition-colors hover:border-lima hover:bg-lima hover:text-noche"
+          className="absolute right-3 top-3 z-10 grid h-10 w-10 place-items-center rounded-full border border-gris/30 bg-noche/40 font-mono text-lg transition-colors hover:border-lima hover:bg-lima hover:text-noche"
         >
           ✕
         </button>
 
-        <header className="flex items-center gap-5 border-b-2 border-gris/15 p-6 pr-16 sm:p-8 sm:pr-20">
-          <div className="grid h-20 w-20 shrink-0 place-items-center overflow-hidden border-2 border-gris/30 bg-lila font-display text-3xl font-bold text-noche sm:h-24 sm:w-24">
+        <header className="flex items-center gap-5 border-b border-gris/15 p-6 pr-16 sm:p-8 sm:pr-20">
+          <div className="grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-2xl bg-lila font-display text-3xl font-semibold text-noche sm:h-24 sm:w-24">
             {persona.foto ? (
               <img src={persona.foto} alt="" className="h-full w-full object-cover" />
             ) : (
@@ -112,9 +112,9 @@ export default function PersonasPage({ persona, onCerrar }) {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border-2 border-gris/40 px-3 py-2 font-mono text-xs uppercase tracking-wider transition-colors hover:border-lima hover:text-lima"
+                    className="rounded-full border border-gris/30 px-4 py-2 font-mono text-xs uppercase tracking-wider transition-colors hover:border-lima hover:text-lima"
                   >
-                    {NOMBRES_LINKS[tipo] ?? tipo} ↗
+                    {NOMBRES_LINKS[tipo] ?? tipo} ↗<span className="sr-only"> (abre en una pestaña nueva)</span>
                   </a>
                 ))}
               </div>
@@ -130,7 +130,7 @@ export default function PersonasPage({ persona, onCerrar }) {
                     <RouterLink
                       to={`/programa/${programa.id}`}
                       onClick={onCerrar}
-                      className="block border-2 border-gris/20 px-4 py-3 font-display text-lg font-bold transition-colors hover:border-lima hover:text-lima"
+                      className="block rounded-2xl border border-gris/20 px-4 py-3 font-display text-lg font-medium transition-colors hover:border-lima hover:text-lima"
                     >
                       {programa.titulo}
                     </RouterLink>

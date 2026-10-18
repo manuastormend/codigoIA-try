@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 /* ───────── Tipografías (carpeta utils/Tipografías → copiadas a assets/fonts) ───────── */
-@font-face { font-family: 'Diagramm'; src: url('./assets/fonts/Diagramm-Light.ttf') format('truetype'); font-weight: 300; font-display: swap; }
-@font-face { font-family: 'Diagramm'; src: url('./assets/fonts/Diagramm-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'Diagramm'; src: url('./assets/fonts/Diagramm-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
-@font-face { font-family: 'Diagramm'; src: url('./assets/fonts/Diagramm-SemiBold.ttf') format('truetype'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Diagramm'; src: url('./assets/fonts/Diagramm-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Diagramm'; src: url('./assets/fonts/Diagramm-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Diagramm'; src: url('./assets/fonts/Diagramm-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Diagramm'; src: url('./assets/fonts/Diagramm-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
 
-@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-Light.ttf') format('truetype'); font-weight: 300; font-display: swap; }
-@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
-@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-SemiBold.ttf') format('truetype'); font-weight: 600; font-display: swap; }
-@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('./assets/fonts/IBMPlexSans-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
 
 :root {
   --azul: #2400FF;
@@ -25,6 +25,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* La cabecera es fija: al enfocar con teclado o saltar a un ancla, el
+     elemento no queda tapado por ella (WCAG 2.4.11). */
+  scroll-padding-top: 6rem;
 }
 
 html, body, #root {
@@ -87,5 +90,264 @@ html, body, #root {
       linear-gradient(rgba(255, 107, 59, 0.35) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 107, 59, 0.35) 1px, transparent 1px);
     background-size: 48px 48px;
+  }
+}
+
+/* Foco visible en todo el sitio (WCAG 2.4.7) */
+:focus-visible {
+  outline: 2px solid var(--azul);
+  outline-offset: 3px;
+}
+.bg-noche :focus-visible,
+.bg-azul :focus-visible {
+  outline-color: var(--lima);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* ───────── Transición entre secciones ─────────
+   Cada sección sube sobre la anterior con el borde superior curvo, así se
+   delimitan sin cortes secos. El contenido aparece suavemente al hacer scroll
+   (solo donde el navegador soporta animation-timeline; si no, se ve normal). */
+@layer components {
+  .seccion-curva {
+    position: relative;
+    margin-top: -2.5rem;
+    border-radius: 2.5rem 2.5rem 0 0;
+  }
+  @media (min-width: 640px) {
+    .seccion-curva {
+      margin-top: -3.5rem;
+      border-radius: 3.5rem 3.5rem 0 0;
+    }
+  }
+}
+
+/* ───────── Mapa de temas: vidrio y neón ─────────
+   Cada nodo es un panel de vidrio translúcido con borde y brillo neón. El tono
+   (--tono, "r,g,b") y la intensidad (--brillo) los fija el componente. */
+@layer components {
+  .mapa-vidrio {
+    position: relative;
+    isolation: isolate;
+    background:
+      linear-gradient(135deg, rgba(var(--tono), 0.3) 0%, rgba(var(--tono), 0.07) 46%, rgba(var(--tono), 0.14) 100%);
+    border: 1px solid rgba(var(--tono), 0.5);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -12px 20px rgba(var(--tono), 0.08),
+      0 10px 28px rgba(2, 2, 14, 0.45),
+      0 0 22px rgba(var(--tono), var(--brillo, 0.16));
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms, box-shadow 300ms, background-color 250ms;
+  }
+  /* Reflejo diagonal, como luz sobre un cristal. */
+  .mapa-vidrio::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(112deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 36%);
+    pointer-events: none;
+  }
+  .mapa-vidrio[data-lit="true"] {
+    border-color: rgba(var(--tono), 0.95);
+    background:
+      linear-gradient(135deg, rgba(var(--tono), 0.34) 0%, rgba(var(--tono), 0.1) 55%, rgba(250, 250, 250, 0.1) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 10px 28px rgba(2, 2, 14, 0.45),
+      0 0 34px rgba(var(--tono), 0.55),
+      0 0 80px rgba(var(--tono), 0.22);
+  }
+}
+
+/* Movimiento del mapa: nodos que flotan, núcleo que respira, anillos que giran
+   y pulsos de luz. Solo si la persona no pidió menos movimiento. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes mapa-flotar {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -5px, 0); }
+  }
+  @keyframes mapa-respirar {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.1); }
+  }
+  @keyframes mapa-girar {
+    to { transform: rotate(360deg); }
+  }
+  /* Mapa a pantalla completa (celular): ondas de luz que salen del nodo tocado
+     y chispas que titilan alrededor. */
+  @keyframes mapa-onda {
+    from { transform: translate(-50%, -50%) scale(0.15); opacity: 0.7; }
+    to { transform: translate(-50%, -50%) scale(4.2); opacity: 0; }
+  }
+  @keyframes mapa-chispa {
+    0%, 100% { opacity: 0; transform: translateY(0) scale(0.6); }
+    50% { opacity: 0.95; transform: translateY(-14px) scale(1); }
+  }
+  .mapa-onda {
+    animation: mapa-onda 1.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .mapa-chispa {
+    animation: mapa-chispa 3.6s ease-in-out infinite;
+  }
+  .mapa-flotar {
+    animation: mapa-flotar 6s ease-in-out infinite;
+  }
+  .mapa-respirar {
+    animation: mapa-respirar 5s ease-in-out infinite;
+  }
+  .mapa-girar {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: mapa-girar 120s linear infinite;
+  }
+  .mapa-girar-inverso {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: mapa-girar 180s linear infinite reverse;
+  }
+}
+
+/* ───────── Texturas de la identidad: puntos y cuadrícula ─────────
+   Un velo muy suave detrás del contenido: .tx lo activa (necesita que el
+   elemento esté posicionado) y un modificador elige el motivo. La máscara lo
+   desvanece hacia abajo para que se sienta como textura y no como patrón. */
+@layer components {
+  .tx {
+    isolation: isolate;
+  }
+  .tx::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: var(--tx-img);
+    background-size: var(--tx-size);
+    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 25%, #000 0%, transparent 90%);
+    mask-image: radial-gradient(ellipse 85% 75% at 50% 25%, #000 0%, transparent 90%);
+  }
+  /* Puntos claros sobre fondo oscuro. */
+  .tx-puntos {
+    --tx-img: radial-gradient(rgba(250, 250, 250, 0.2) 1.2px, transparent 1.7px);
+    --tx-size: 18px 18px;
+  }
+  /* Puntos oscuros sobre fondo claro. */
+  .tx-puntos-claro {
+    --tx-img: radial-gradient(rgba(26, 26, 48, 0.16) 1.1px, transparent 1.6px);
+    --tx-size: 14px 14px;
+  }
+  /* Cuadrícula de líneas finas sobre fondo oscuro o de color. */
+  .tx-cuadricula {
+    --tx-img:
+      linear-gradient(rgba(250, 250, 250, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(250, 250, 250, 0.1) 1px, transparent 1px);
+    --tx-size: 36px 36px;
+  }
+  /* Cuadrícula sobre fondo claro. */
+  .tx-cuadricula-claro {
+    --tx-img:
+      linear-gradient(rgba(26, 26, 48, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26, 26, 48, 0.07) 1px, transparent 1px);
+    --tx-size: 36px 36px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(32px); }
+      to { opacity: 1; transform: none; }
+    }
+    .seccion-curva > div {
+      animation: aparecer linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+
+/* ───────── Rendimiento ─────────
+   Animaciones en CSS puro (compositor del navegador, sin JavaScript por cuadro).
+   Sustituyen a las de framer-motion en el latido de "re perdido" y el giro del
+   isotipo del hero. Con "reducir movimiento" quedan quietas. */
+@keyframes latido {
+  0%, 25.7%, 100% { transform: scale(1); }
+  12.86% { transform: scale(1.08); }
+}
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+.latido-letra {
+  animation: latido 1.75s ease-in-out infinite;
+  will-change: transform;
+}
+.girar {
+  animation: girar 40s linear infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .latido-letra,
+  .girar {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+/* Solo el núcleo del mapa (un único elemento) conserva el desenfoque de vidrio. */
+.mapa-vidrio--blur {
+  -webkit-backdrop-filter: blur(10px) saturate(1.5);
+  backdrop-filter: blur(10px) saturate(1.5);
+}
+
+/* Botón que no se ve pero sigue en el orden de tabulación y para lectores de pantalla;
+   aparece cuando recibe el foco con teclado. */
+.boton-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.boton-oculto:focus-visible {
+  position: static;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  border: 1px solid rgba(250, 250, 250, 0.35);
+  background: rgba(26, 26, 48, 0.7);
+}
+
+/* Intro: el fondo se desvanece durante el último tramo del viaje del logo (1,4 s → 2,2 s)
+   y la home aparece con un fundido corto cuando el logo ya llegó. */
+@keyframes desvanecer-intro {
+  to { opacity: 0; }
+}
+@keyframes entrada-home {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.intro-desvanecer {
+  animation: desvanecer-intro 0.8s ease-in 1.4s forwards;
+}
+.entrada-home {
+  animation: entrada-home 0.6s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-desvanecer,
+  .entrada-home {
+    animation: none;
   }
 }

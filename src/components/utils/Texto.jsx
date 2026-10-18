@@ -24,7 +24,7 @@ export default function Texto({ children, className = "" }) {
                   rel="noopener noreferrer"
                   className="break-all underline decoration-lima underline-offset-4 hover:text-lima"
                 >
-                  {trozo}
+                  {trozo}<span className="sr-only"> (abre en una pestaña nueva)</span>
                 </a>
               );
             }

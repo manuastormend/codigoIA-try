@@ -20,17 +20,17 @@ export default function VideoFlotante({ url, inicio = 0, titulo, onCerrar }) {
     <div
       role="dialog"
       aria-label={titulo ? `Video: ${titulo}` : "Video"}
-      className="fixed bottom-4 right-4 z-50 w-[min(92vw,420px)] border-2 border-lima bg-noche shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+      className="fixed bottom-4 right-4 z-50 w-[min(92vw,420px)] overflow-visible rounded-2xl border border-gris/25 bg-noche shadow-[0_20px_60px_rgba(0,0,0,0.55)]"
     >
       <button
         type="button"
         onClick={onCerrar}
         aria-label="Cerrar video"
-        className="absolute -top-px right-0 z-10 grid h-9 w-9 -translate-y-full place-items-center border-2 border-b-0 border-lima bg-noche font-mono text-base text-lima transition-colors hover:bg-lima hover:text-noche"
+        className="absolute -top-3 right-2 z-10 grid h-9 w-9 -translate-y-full place-items-center rounded-full bg-gris font-mono text-base text-noche shadow-suave transition-colors hover:bg-lima"
       >
         ✕
       </button>
-      <div className="aspect-video w-full">
+      <div className="aspect-video w-full overflow-hidden rounded-2xl">
         <iframe
           key={`${id}-${inicio}`}
           className="h-full w-full"

@@ -5,13 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Código.IA</title>
-    <!-- IBM Plex Mono (etiquetas /SLASH): no viene en utils/Tipografías, se carga desde Google Fonts -->
+    <!-- Las dos tipografías de más peso visual se piden de entrada, en WOFF2 (subset latino). -->
+    <link rel="preload" href="/src/assets/fonts/Diagramm-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/src/assets/fonts/IBMPlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Miniaturas de YouTube: se abre la conexión antes de que se necesiten -->
+    <link rel="preconnect" href="https://i.ytimg.com" crossorigin />
+    <!-- IBM Plex Mono (etiquetas /SLASH): no viene en utils/Tipografías, se carga desde Google Fonts.
+         La hoja de estilos no bloquea el primer dibujo: se pide como "print" y pasa a "all" al cargar. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
   </head>
   <body class="bg-noche">
     <div id="root"></div>

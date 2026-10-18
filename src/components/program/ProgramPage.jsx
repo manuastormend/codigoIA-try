@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getProgramaPorId,
   getProgramasPorTemporada,
@@ -11,6 +11,8 @@ import { getYoutubeEmbedUrl, getYoutubeId } from "../../servicios/youtube";
 import { iniciales } from "../../servicios/citas";
 import { formatFecha } from "../../servicios/texto";
 import PersonasPage from "../personas/PersonasPage";
+import Footer from "../general/Footer";
+import Orbes from "../utils/Orbes";
 import PageHeader from "../utils/PageHeader";
 import PersonBadge from "../utils/PersonBadge";
 import RouterLink from "../utils/RouterLink";
@@ -52,13 +54,13 @@ function Desplegable({ titulo, abierto = true, ultimo = false, children }) {
   return (
     <details
       open={abierto}
-      className={`group border-t-2 border-gris/25 ${ultimo ? "border-b-2" : ""}`}
+      className={`group border-t border-gris/15 ${ultimo ? "border-b" : ""}`}
     >
       <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-xl font-bold sm:text-2xl [&::-webkit-details-marker]:hidden">
         {titulo}
         <span
           aria-hidden
-          className="relative h-[34px] w-[34px] shrink-0 border-2 border-gris/40 bg-lima before:absolute before:left-1/2 before:top-1/2 before:h-0.5 before:w-3.5 before:-translate-x-1/2 before:-translate-y-1/2 before:bg-noche before:content-[''] after:absolute after:left-1/2 after:top-1/2 after:h-3.5 after:w-0.5 after:-translate-x-1/2 after:-translate-y-1/2 after:bg-noche after:content-[''] group-open:after:hidden"
+          className="relative h-[34px] w-[34px] shrink-0 rounded-full bg-lima transition-transform duration-200 group-hover:scale-110 before:absolute before:left-1/2 before:top-1/2 before:h-0.5 before:w-3.5 before:-translate-x-1/2 before:-translate-y-1/2 before:bg-noche before:content-[''] after:absolute after:left-1/2 after:top-1/2 after:h-3.5 after:w-0.5 after:-translate-x-1/2 after:-translate-y-1/2 after:bg-noche after:content-[''] group-open:after:hidden"
         />
       </summary>
       <div className="pb-6 text-base leading-relaxed text-gris/85 sm:text-[17px]">{children}</div>
@@ -73,6 +75,9 @@ function Desplegable({ titulo, abierto = true, ultimo = false, children }) {
 export default function ProgramPage({ id }) {
   const [personaAbierta, setPersonaAbierta] = useState(null);
   const programa = getProgramaPorId(id);
+  useEffect(() => {
+    document.title = programa ? `${programa.titulo} · Código.IA` : "Nos perdimos · Código.IA";
+  }, [programa]);
   const temporada = programa ? getTemporada(programa.temporadaId) : null;
   const delaTemporada = programa ? getProgramasPorTemporada(programa.temporadaId) : [];
   const numero = programa ? delaTemporada.findIndex((p) => p.id === programa.id) + 1 : 0;
@@ -85,33 +90,39 @@ export default function ProgramPage({ id }) {
 
   return (
     <div className="min-h-screen w-full bg-noche text-gris">
-      <PageHeader conVolver={false} />
-
-      <main>
+      <main id="contenido" tabIndex={-1} className="outline-none">
         {!programa ? (
+          <>
+          <PageHeader conVolver={false} />
           <div className="mx-auto max-w-4xl px-6 py-24 text-center sm:px-10">
             <p className={`${ETIQUETA} text-lima`}>/No encontrado</p>
             <h1 className="mt-4 font-display text-3xl font-medium sm:text-5xl">
-              No encontramos ese programa
+              Nos perdimos.
             </h1>
             <RouterLink
               to="/"
-              className="mt-8 inline-block border-2 border-gris px-5 py-2.5 font-mono text-xs font-medium uppercase tracking-wider transition-colors duration-300 hover:border-lima hover:bg-lima hover:text-noche sm:text-sm"
+              className="mt-8 inline-block rounded-full border border-gris px-6 py-3 font-mono text-xs font-medium uppercase tracking-wider transition-colors duration-300 hover:border-lima hover:bg-lima hover:text-noche sm:text-sm"
             >
               Volver al inicio
             </RouterLink>
           </div>
+          </>
         ) : (
           <>
             {/* Título */}
+            <div className="relative overflow-hidden bg-noche text-gris">
+            <Orbes />
+            <div aria-hidden="true" className="tx tx-puntos absolute inset-0" />
+            <div className="relative">
+            <PageHeader conVolver={false} />
             <section>
-              <div className="mx-auto max-w-7xl px-6 pb-10 pt-6 sm:px-10">
+              <div className="mx-auto max-w-6xl px-6 pb-10 pt-6 sm:px-10 sm:pb-12">
                 <div className="flex max-w-4xl flex-col gap-5">
-                  <span className={`${ETIQUETA} self-start bg-gris px-3 py-2 text-noche`}>
+                  <span className={`${ETIQUETA} self-start text-lila`}>
                     /Programa {String(numero).padStart(2, "0")}
                     {temporada ? ` · ${temporada.titulo}` : ""}
                   </span>
-                  <h1 className="font-display text-4xl font-bold uppercase leading-[0.97] tracking-tight sm:text-6xl">
+                  <h1 className="font-display text-3xl font-semibold leading-[1.02] tracking-tight sm:text-5xl">
                     <TituloResaltado texto={programa.titulo} />
                   </h1>
                   {programa.pregunta && (
@@ -123,10 +134,10 @@ export default function ProgramPage({ id }) {
                     <p className="max-w-2xl text-base text-gris/70">{programa.subtitulo}</p>
                   )}
                   {(fecha || programa.duracion) && (
-                    <div className="inline-flex flex-wrap items-center gap-4 self-start border-2 border-gris/30 px-4 py-3 font-mono text-sm uppercase">
+                    <div className="inline-flex flex-wrap items-center gap-4 self-start rounded-full border border-gris/20 px-5 py-2.5 font-mono text-xs uppercase tracking-wider">
                       {fecha && <span>{fecha}</span>}
                       {programa.duracion && (
-                        <span className="border border-gris/40 px-2.5 py-0.5 text-lima">
+                        <span className="rounded-full bg-lima px-2.5 py-0.5 text-noche">
                           {programa.duracion}
                         </span>
                       )}
@@ -135,12 +146,14 @@ export default function ProgramPage({ id }) {
                 </div>
               </div>
             </section>
+            </div>
+            </div>
 
             {/* Video grande + descripción · invitados al costado */}
             <section>
-              <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-14 pt-2 sm:px-10 lg:grid-cols-12 lg:gap-6">
+              <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-10 sm:px-10 lg:grid-cols-12 lg:gap-6">
                 <div className="flex flex-col gap-8 lg:col-span-9">
-                  <div className="aspect-video w-full border-2 border-gris/30 bg-noche shadow-[10px_10px_0_0_rgba(196,253,54,0.3)]">
+                  <div className="aspect-video w-full overflow-hidden rounded-3xl border border-gris/15 bg-noche shadow-[0_30px_70px_-30px_rgba(193,114,255,0.5)]">
                     {programa.linkYoutube ? (
                       <iframe
                         src={getYoutubeEmbedUrl(programa.linkYoutube)}
@@ -171,7 +184,7 @@ export default function ProgramPage({ id }) {
                         <div className="grid gap-6">
                           {extras.map((recurso) => (
                             <figure key={recurso.id}>
-                              <div className="aspect-video w-full overflow-hidden border-2 border-gris/20 bg-noche">
+                              <div className="aspect-video w-full overflow-hidden rounded-2xl border border-gris/15 bg-noche">
                                 <iframe
                                   src={urlEmbed(recurso)}
                                   title={recurso.titulo}
@@ -189,7 +202,7 @@ export default function ProgramPage({ id }) {
                       </Desplegable>
                     )}
                     {temas.length > 0 && (
-                      <div className="border-y-2 border-gris/25 py-6">
+                      <div className="border-y border-gris/15 py-6">
                         <h2 className="mb-4 font-display text-xl font-bold sm:text-2xl">
                           {temas.length > 1 ? "Temas" : "Tema"}
                         </h2>
@@ -198,7 +211,7 @@ export default function ProgramPage({ id }) {
                             <RouterLink
                               key={t.id}
                               to={`/temas/${t.id}`}
-                              className="border-2 border-gris/30 px-3 py-2 font-mono text-xs uppercase tracking-wider transition-colors hover:border-lima hover:text-lima"
+                              className="rounded-full border border-lila/50 bg-lila/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-lila transition-colors hover:border-lila hover:bg-lila hover:text-noche"
                             >
                               {t.nombre}
                             </RouterLink>
@@ -219,10 +232,10 @@ export default function ProgramPage({ id }) {
                           type="button"
                           onClick={() => setPersonaAbierta(persona)}
                           aria-label={`Ver perfil de ${persona.nombre}`}
-                          className="border-2 border-gris/25 text-left transition-colors hover:border-lima"
+                          className="group overflow-hidden rounded-3xl border border-gris/15 bg-gris/5 text-left transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-lila/60 hover:shadow-[0_18px_40px_-18px_rgba(193,114,255,0.55)]"
                         >
                           <div
-                            className={`flex aspect-[4/3] items-center justify-center font-display text-5xl font-bold text-noche ${AVATARES[i % AVATARES.length]}`}
+                            className={`relative flex aspect-[2/1] items-center justify-center overflow-hidden font-display text-4xl font-semibold text-noche ${AVATARES[i % AVATARES.length]}`}
                           >
                             {iniciales(persona.nombre)}
                           </div>
@@ -234,7 +247,7 @@ export default function ProgramPage({ id }) {
                               <p className="mt-1 text-sm text-gris/70">{persona.profesion}</p>
                             )}
                             <p className="mt-3 font-mono text-xs uppercase tracking-wider text-lima">
-                              Ver perfil →
+                              Conocé su perfil →
                             </p>
                           </div>
                         </button>
@@ -258,6 +271,10 @@ export default function ProgramPage({ id }) {
           </>
         )}
       </main>
+
+      <div className="pt-14">
+        <Footer />
+      </div>
 
       {personaAbierta && (
         <PersonasPage persona={personaAbierta} onCerrar={() => setPersonaAbierta(null)} />

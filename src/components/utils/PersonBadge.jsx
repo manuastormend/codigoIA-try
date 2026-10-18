@@ -4,7 +4,7 @@
  */
 export default function PersonBadge({ children }) {
   return (
-    <span className="border border-current px-3 py-1 font-mono text-[11px] uppercase tracking-wide sm:text-xs">
+    <span className="rounded-full border border-current px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-wide sm:text-xs">
       {children}
     </span>
   )

@@ -8,38 +8,32 @@ export default function CitaCard({ cita, onReproducir }) {
   const temporada = getTemporada(programa.temporadaId);
 
   return (
-    <figure className="group border-2 border-gris/30 bg-transparent text-gris shadow-[8px_8px_0_0_rgba(196,253,54,0.25)] transition-colors hover:border-lima">
-      <figcaption className="flex items-center gap-3 border-b-2 border-gris/30 p-4">
+    <figure className="min-w-0 overflow-hidden rounded-3xl border border-noche/10 bg-white text-noche shadow-suave transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-suave-lg">
+      <figcaption className="flex flex-wrap items-center gap-3 p-5">
         <span
           aria-hidden
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-gris/30 bg-lila font-sans text-sm text-noche"
+          className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-azul font-display text-base font-semibold text-gris"
         >
           {iniciales(persona.nombre)}
         </span>
         <div className="min-w-0 flex-1">
-          <p className="truncate font-display text-lg font-semibold uppercase leading-tight">
-            <span className="px-1 transition-colors group-hover:bg-lima group-hover:text-noche [box-decoration-break:clone]">
-              {persona.nombre}
-            </span>
-          </p>
+          <p className="font-display text-lg font-semibold leading-tight">{persona.nombre}</p>
           {persona.profesion && (
-            <p className="truncate font-mono text-[11px] uppercase tracking-wider text-gris/60">
-              {persona.profesion}
-            </p>
+            <p className="text-sm text-noche/70">{persona.profesion}</p>
           )}
         </div>
         <button
           type="button"
           onClick={() => onReproducir(cita)}
-          className="shrink-0 border-2 border-azul bg-azul px-3 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-[4px_4px_0_0_rgba(196,253,54,0.6)] transition-transform hover:-translate-y-0.5"
+          className="w-full shrink-0 rounded-full bg-azul px-5 py-2.5 text-center text-sm font-medium text-gris transition duration-200 hover:-translate-y-0.5 hover:bg-noche sm:w-auto"
         >
-          ▶ Reproducir {formatTiempo(cita.inicio)}
+          ▶ Escuchá este momento ({formatTiempo(cita.inicio)})
         </button>
       </figcaption>
-      <blockquote className="p-5 font-serif text-lg italic leading-relaxed sm:text-xl">
+      <blockquote className="px-6 pb-6 pt-1 font-serif text-xl italic leading-relaxed sm:text-2xl">
         “{cita.texto}”
       </blockquote>
-      <p className="border-t border-gris/20 px-5 py-3 font-mono text-[11px] uppercase tracking-wider">
+      <p className="border-t border-noche/10 bg-gris px-6 py-3 font-mono text-[11px] uppercase tracking-wider text-noche/70">
         {temporada?.titulo} · {programa.titulo}
       </p>
     </figure>

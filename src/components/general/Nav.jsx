@@ -4,17 +4,14 @@ import { AnimatePresence, motion } from 'framer-motion'
 // Un link por sección de la home, en el mismo orden en que aparecen en la página.
 const LINKS = [
   { href: '#temas', label: 'Temas' },
-  { href: '#cuarta-temporada', label: 'Última temporada' },
-  { href: '#todos-los-programas', label: 'Todos los programas' },
-  { href: '#sobre-el-proyecto', label: 'Sobre el proyecto' },
-  { href: '#contacto', label: 'Contacto' },
+  { href: '#cuarta-temporada', label: 'Lo último' },
+  { href: '#todos-los-programas', label: 'Todo el catálogo' },
+  { href: '#sobre-el-proyecto', label: 'De qué va esto' },
+  { href: '#contacto', label: 'Escribinos' },
 ]
 
 // Alto del header fijo: la sección queda justo debajo.
 const ALTO_HEADER = 72
-// Espera antes de scrollear al pasar el cursor, para no disparar scrolls
-// cuando el mouse solo cruza el menú.
-const RETRASO_HOVER_MS = 140
 
 function irA(href) {
   const el = document.querySelector(href)
@@ -26,7 +23,7 @@ function irA(href) {
 
 /**
  * Menú (derecha del header): un panel chico que se abre al costado, bajo el
- * botón. Al pasar el cursor por un link la página baja sola a esa sección;
+ * botón. Se abre al pasar el cursor por el botón. Al pasar el cursor por un link la página baja sola a esa sección;
  * al hacer clic se queda ahí y el panel se cierra.
  */
 export default function Nav() {
@@ -34,36 +31,66 @@ export default function Nav() {
   const [activo, setActivo] = useState(null)
   const raiz = useRef(null)
   const timer = useRef(null)
+  const cierre = useRef(null)
+  const ultimoPuntero = useRef(null)
+  const boton = useRef(null)
 
   useEffect(() => {
     if (!open) return
     const alPresionar = (e) => {
       if (raiz.current && !raiz.current.contains(e.target)) setOpen(false)
     }
-    const alTeclear = (e) => e.key === 'Escape' && setOpen(false)
+    const alTeclear = (e) => {
+      if (e.key !== 'Escape') return
+      setOpen(false)
+      boton.current?.focus()
+    }
     document.addEventListener('pointerdown', alPresionar)
     document.addEventListener('keydown', alTeclear)
     return () => {
       document.removeEventListener('pointerdown', alPresionar)
       document.removeEventListener('keydown', alTeclear)
       clearTimeout(timer.current)
+      clearTimeout(cierre.current)
       setActivo(null)
     }
   }, [open])
 
-  const previsualizar = (href) => {
-    setActivo(href)
-    clearTimeout(timer.current)
-    timer.current = setTimeout(() => irA(href), RETRASO_HOVER_MS)
+  // Con mouse el panel se abre al pasar el cursor y se cierra al salir (con una
+  // pequeña espera para no cerrarse si el cursor cruza el espacio entre botón y panel).
+  // Con teclado o pantalla táctil se mantiene el clic como alternativa.
+  const alEntrar = (e) => {
+    if (e.pointerType !== 'mouse') return
+    clearTimeout(cierre.current)
+    setOpen(true)
+  }
+  const alSalir = (e) => {
+    if (e.pointerType !== 'mouse') return
+    clearTimeout(cierre.current)
+    cierre.current = setTimeout(() => setOpen(false), 250)
   }
 
+  const resaltar = (href) => setActivo(href)
+
   return (
-    <div ref={raiz} className="relative">
+    <div
+      ref={raiz}
+      className="relative"
+      onPointerEnter={alEntrar}
+      onPointerLeave={alSalir}
+    >
       <motion.button
         type="button"
         aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
         aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
+        aria-controls="menu-secciones"
+        ref={boton}
+        onPointerDown={(e) => { ultimoPuntero.current = e.pointerType }}
+        onClick={() => {
+          // Con mouse ya se abrió al pasar el cursor: el clic no debe cerrarlo.
+          if (ultimoPuntero.current === 'mouse') { ultimoPuntero.current = null; setOpen(true); return }
+          setOpen((v) => !v)
+        }}
         className="group relative z-[60] flex h-5 w-7 flex-col justify-center gap-[5px]"
       >
         <motion.span
@@ -81,6 +108,7 @@ export default function Nav() {
       <AnimatePresence>
         {open && (
           <motion.nav
+            id="menu-secciones"
             aria-label="Secciones"
             initial={{ opacity: 0, scale: 0.94, y: -8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -99,8 +127,8 @@ export default function Nav() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onMouseEnter={() => previsualizar(link.href)}
-                  onFocus={() => previsualizar(link.href)}
+                  onMouseEnter={() => resaltar(link.href)}
+                  onFocus={() => resaltar(link.href)}
                   onClick={(e) => {
                     e.preventDefault()
                     clearTimeout(timer.current)
