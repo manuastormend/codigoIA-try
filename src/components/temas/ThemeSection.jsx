@@ -3,6 +3,7 @@ import { useMediaQuery } from "../../servicios/medios";
 // Cada mapa se descarga solo si la pantalla lo necesita (PC o celular).
 const ThemeMap = lazy(() => import("./ThemeMap"));
 const ThemeMapMovil = lazy(() => import("./ThemeMapMovil"));
+const ThemeMapSimple = lazy(() => import("./ThemeMapSimple"));
 import RouterLink from "../utils/RouterLink";
 import { TEMAS, getTema } from "../../servicios/temas";
 import { getVecinos } from "../../servicios/mapa";
@@ -39,7 +40,7 @@ export default function ThemeSection() {
             clic en cualquiera para ver los programas de ese tema.
           </span>
           <span className="lg:hidden">
-            Tocá un nodo y mirá cómo se conecta todo. Después metete en el tema desde la ficha de abajo.
+            Tocá un tema y entrá directo a sus programas.
           </span>
         </p>
 
@@ -80,10 +81,22 @@ export default function ThemeSection() {
           </ul>
         </details>
 
+        {/* Mapa de celular anterior, desactivado a prueba (para recuperarlo: descomentar
+            este bloque y comentar el mapa simple de abajo).
         <div className="mt-8 lg:hidden">
           {!esEscritorio && (
             <Suspense fallback={<div className="h-[640px] w-full rounded-3xl bg-[#050512]" />}>
               <ThemeMapMovil />
+            </Suspense>
+          )}
+        </div>
+        */}
+
+        {/* Mapa simple y liviano para celular y tablet (reemplaza a ThemeMapMovil). */}
+        <div className="mt-8 lg:hidden">
+          {!esEscritorio && (
+            <Suspense fallback={<div className="mx-auto aspect-[5/6] w-full max-w-[460px] rounded-3xl bg-[#0b0b22] md:max-w-[560px]" />}>
+              <ThemeMapSimple />
             </Suspense>
           )}
         </div>

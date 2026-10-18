@@ -114,13 +114,13 @@ html, body, #root {
 @layer components {
   .seccion-curva {
     position: relative;
-    margin-top: -2.5rem;
-    border-radius: 2.5rem 2.5rem 0 0;
+    margin-top: -1.25rem;
+    border-radius: 1.25rem 1.25rem 0 0;
   }
   @media (min-width: 640px) {
     .seccion-curva {
-      margin-top: -3.5rem;
-      border-radius: 3.5rem 3.5rem 0 0;
+      margin-top: -2rem;
+      border-radius: 2rem 2rem 0 0;
     }
   }
 }
@@ -350,4 +350,48 @@ html, body, #root {
   .entrada-home {
     animation: none;
   }
+}
+
+/* ───────── Intro: el aro del logo gira y frena ─────────
+   Da vueltas al aparecer y llega quieto (0°) antes de que empiece el viaje al
+   header (2,2 s), así al cambiar al logo chico no hay saltos. Solo gira el aro. */
+@keyframes aro-giro {
+  from { transform: rotate(-360deg); }
+  to { transform: rotate(0deg); }
+}
+/* Secuencia del logo de la intro (2,9 s): 0–2,1 s solo el aro, girando en el medio;
+   al frenar, el logo se desliza a su lugar (el aro pasa a la izquierda) y aparece
+   "Código.IA". El viaje al header arranca después (INTRO_DURATION_MS). El estado
+   inicial (aro al medio, letras ocultas) vive en los keyframes: con "reducir
+   movimiento" no hay animación y se ve el logo completo. */
+@keyframes logo-desliza {
+  0%, 72.4% { transform: translateX(36.07%); }
+  100% { transform: translateX(0); }
+}
+@keyframes letras-aparecen {
+  0%, 72.4% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.logo-intro {
+  animation: logo-desliza 2.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+.letras-intro {
+  animation: letras-aparecen 2.9s ease-out both;
+}
+.aro-giro {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: aro-giro 2.1s cubic-bezier(0.45, 0, 0.2, 1) both;
+}
+/* Ya en el header: gira sin parar, al ritmo de las ruedas del hero (45-60 s). */
+.aro-giro-continuo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: girar 35s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aro-giro,
+  .aro-giro-continuo,
+  .logo-intro,
+  .letras-intro { animation: none; }
 }

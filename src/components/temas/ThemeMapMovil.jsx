@@ -92,7 +92,7 @@ const CONEXIONES = ARISTAS.filter((e) => e.de !== CENTRO.id).map((e) => {
 
 const pct = (v, total) => `${((v / total) * 100).toFixed(2)}%`;
 
-/** Fondo "universo": noche profunda con nebulosas suaves y una cuadrícula fina. */
+/** Fondo "universo": noche profunda lisa (sin manchas de color) y una cuadrícula fina. */
 function Universo() {
   return (
     <>
@@ -101,10 +101,6 @@ function Universo() {
         className="pointer-events-none absolute inset-0"
         style={{
           background: [
-            "radial-gradient(ellipse 70% 30% at 15% 8%, rgba(196,253,54,0.10), transparent 70%)",
-            "radial-gradient(ellipse 80% 35% at 10% 45%, rgba(36,0,255,0.30), transparent 70%)",
-            "radial-gradient(ellipse 70% 30% at 90% 70%, rgba(193,114,255,0.18), transparent 70%)",
-            "radial-gradient(ellipse 60% 25% at 20% 95%, rgba(255,107,59,0.12), transparent 70%)",
             "linear-gradient(180deg, #12122a 0%, #080818 55%, #040410 100%)",
           ].join(", "),
         }}

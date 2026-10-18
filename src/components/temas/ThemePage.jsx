@@ -78,7 +78,7 @@ function Contenido({ tema }) {
   return (
     <>
       <div className="relative overflow-hidden bg-noche text-gris">
-        <Orbes />
+        {/* Orbes desactivado a prueba (para recuperarlo: descomentar esta línea) <Orbes /> */}
         <div aria-hidden="true" className="tx tx-puntos absolute inset-0" />
         <div className="relative">
           <PageHeader conVolver={false} />

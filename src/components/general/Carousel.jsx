@@ -95,7 +95,7 @@ export default function SeasonCarousel({ activo = true }) {
       onMouseLeave={() => setPausado(false)}
       onFocus={() => setPausado(true)}
       onBlur={() => setPausado(false)}
-      className="relative h-[min(560px,calc(100svh-5rem))] min-h-[520px] w-full overflow-hidden bg-noche text-gris sm:h-[74vh] sm:min-h-[500px]"
+      className="relative h-[calc(100svh-3.75rem)] min-h-[520px] w-full overflow-hidden bg-noche text-gris sm:h-[calc(100svh-4rem)] sm:min-h-[500px]"
     >
       <h1 className="sr-only">Código.IA: el programa que te ayuda a no estar re perdido con la IA</h1>
       {/* Controles del carrusel: no se ven, pero siguen ahí para teclado y lector de
@@ -136,11 +136,19 @@ export default function SeasonCarousel({ activo = true }) {
             {...gesto}
             className="absolute inset-0 bg-noche"
           >
-            <Orbes />
+            {/* Orbes desactivado a prueba (para recuperarlo: descomentar esta línea) <Orbes /> */}
             <div aria-hidden="true" className="tx tx-puntos absolute inset-0" />
             <Spin
-              className="pointer-events-none absolute -right-32 -top-32 h-[70vw] max-h-[560px] w-[70vw] max-w-[560px] text-gris/[0.06]"
+              className="pointer-events-none absolute -right-32 -top-32 h-[60vw] max-h-[480px] w-[60vw] max-w-[480px] 2xl:max-h-[620px] 2xl:max-w-[620px] min-[1920px]:max-h-[780px] min-[1920px]:max-w-[780px] text-azul/[0.32]"
               durationSeconds={60}
+            >
+              <Isotipo className="h-full w-full" />
+            </Spin>
+            {/* Rueda más chica del lado opuesto, girando al revés. */}
+            <Spin
+              className="pointer-events-none absolute -bottom-20 -left-20 h-[40vw] max-h-[320px] w-[40vw] max-w-[320px] 2xl:max-h-[420px] 2xl:max-w-[420px] min-[1920px]:max-h-[520px] min-[1920px]:max-w-[520px] text-lila/[0.14]"
+              durationSeconds={45}
+              reverse
             >
               <Isotipo className="h-full w-full" />
             </Spin>
@@ -197,9 +205,11 @@ export default function SeasonCarousel({ activo = true }) {
             </div>
 
             <div className="absolute inset-x-6 bottom-32 top-[calc(56.25vw-1.25rem)] overflow-hidden sm:inset-x-12 sm:bottom-40 sm:top-auto sm:overflow-visible">
+              {/* Etiqueta "Programa NN" desactivada a prueba (para recuperarla: descomentar)
               <span className="mb-2 inline-flex rounded-full bg-lila px-3.5 py-1 font-mono text-xs uppercase tracking-wider text-noche sm:mb-4">
                 Programa {String(index).padStart(2, "0")}
               </span>
+              */}
               <h2 className="max-w-2xl font-display text-2xl font-semibold leading-[1.05] sm:text-5xl">
                 {actual.titulo}
               </h2>

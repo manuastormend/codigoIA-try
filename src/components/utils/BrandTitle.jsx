@@ -10,7 +10,7 @@ import Imagotipo from "./Imagotipo";
  * En su primera aparición (variant="large") entra chico y transparente,
  * y crece hasta su tamaño final.
  */
-export default function BrandTitle({ variant = "large", alTerminarViaje }) {
+export default function BrandTitle({ variant = "large", alTerminarViaje, girando = false }) {
   const isLarge = variant === "large";
 
   return (
@@ -29,6 +29,7 @@ export default function BrandTitle({ variant = "large", alTerminarViaje }) {
     >
       <Imagotipo
         className={isLarge ? "w-[78vw] sm:w-[48vw]" : "w-32 sm:w-36"}
+        girar={isLarge ? true : girando ? "continuo" : false}
       />
     </motion.div>
   );

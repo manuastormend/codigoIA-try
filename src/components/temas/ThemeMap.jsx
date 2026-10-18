@@ -157,8 +157,8 @@ export default function ThemeMap({ inmersivo = false, alCambiarInmersivo }) {
         if (!e.currentTarget.contains(e.relatedTarget)) salir();
       }}
     >
-      {/* Universo: noche profunda con nebulosas muy suaves (lima, azul, lila y
-          un toque de naranja). Se mueve al revés que la escena. */}
+      {/* Universo: noche profunda con un leve brillo lima en el centro (sin
+          manchas de color en los costados). Se mueve al revés que la escena. */}
       <div
         aria-hidden="true"
         className="absolute -inset-[8%] transition-[translate] duration-700 ease-out"
@@ -166,9 +166,6 @@ export default function ThemeMap({ inmersivo = false, alCambiarInmersivo }) {
           translate: "calc(var(--mx, 0) * -30px) calc(var(--my, 0) * -30px)",
           background: [
             "radial-gradient(ellipse 34% 32% at 50% 50%, rgba(196,253,54,0.10), transparent 72%)",
-            "radial-gradient(ellipse 42% 40% at 20% 28%, rgba(36,0,255,0.34), transparent 70%)",
-            "radial-gradient(ellipse 36% 34% at 82% 24%, rgba(193,114,255,0.18), transparent 70%)",
-            "radial-gradient(ellipse 40% 42% at 80% 76%, rgba(255,107,59,0.13), transparent 70%)",
             "radial-gradient(ellipse 120% 100% at 50% 50%, #14142b 0%, #090919 55%, #030310 100%)",
           ].join(", "),
           filter: "blur(6px)",

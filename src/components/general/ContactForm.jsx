@@ -24,7 +24,7 @@ export default function ContactForm() {
 
   return (
     <section id="contacto" className="seccion-curva tx tx-cuadricula-claro bg-lila text-noche">
-    <div className="mx-auto max-w-3xl px-6 py-14 sm:px-10 sm:py-20">
+    <div className="mx-auto max-w-3xl px-6 pb-14 pt-8 sm:px-10 sm:pb-20 sm:pt-10">
       <details className="group rounded-3xl border border-noche/10 bg-white shadow-suave">
         <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-3xl px-6 py-4 font-display text-xl font-semibold tracking-tight sm:px-8 sm:text-2xl [&::-webkit-details-marker]:hidden">
           Escribinos

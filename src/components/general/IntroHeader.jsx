@@ -8,7 +8,7 @@ import SearchBar from './SearchBar'
 // Cuánto se queda el título grande centrado (ya asentado) antes de
 // "convertirse" en header. Se suma al tiempo que tarda en aparecer
 // difuminado (ver transition en BrandTitle, ~1.1s) para que no se corten.
-const INTRO_DURATION_MS = 2200
+const INTRO_DURATION_MS = 3300
 
 // Cuánto dura el viaje del logo al header (debe coincidir con layout.duration en
 // BrandTitle y con la animación .intro-desvanecer de index.css).
@@ -54,6 +54,9 @@ export default function IntroHeader({ onIntroDone, skip = false }) {
     const respaldo = setTimeout(terminar, reducir ? 0 : DURACION_VIAJE_MS + 700)
     return () => clearTimeout(respaldo)
   }, [viajando, terminar])
+
+  /* VIAJE DEL SLOGAN DESACTIVADO a prueba: el slogan se queda en el hero y se va con
+     el scroll. Para recuperarlo: descomentar este bloque (y el <p> del header, más abajo).
 
   // Viaje del slogan: sale del título del hero (a su tamaño y en su lugar), se
   // achica y va hacia arriba y al centro del header, mientras el título se
@@ -158,6 +161,7 @@ export default function IntroHeader({ onIntroDone, skip = false }) {
       raiz.style.removeProperty('--eslogan-h2')
     }
   }, [llego])
+  */
 
   // Logo = "volver al inicio": sube al principio y vuelve al primer banner.
   const alInicio = (e) => {
@@ -176,11 +180,12 @@ export default function IntroHeader({ onIntroDone, skip = false }) {
       >
         {viajando && (
           <a href="/" aria-label="Código.IA: volver al inicio" onClick={alInicio} className="block rounded-md">
-            <BrandTitle variant="small" alTerminarViaje={terminar} />
+            <BrandTitle variant="small" alTerminarViaje={terminar} girando={llego} />
           </a>
         )}
 
-        {/* Slogan del header: su posición, tamaño y opacidad los escribe el efecto de arriba. */}
+        {/* Slogan del header DESACTIVADO a prueba (para recuperarlo: descomentar, junto con
+            el efecto "Viaje del slogan" de arriba).
         {llego && (
           <p
             ref={sloganRef}
@@ -191,6 +196,7 @@ export default function IntroHeader({ onIntroDone, skip = false }) {
             El programa que te ayuda a no estar <Heartbeat className="text-lima">re perdido</Heartbeat> con la IA
           </p>
         )}
+        */}
 
         <motion.div
           initial={{ opacity: 0 }}
