@@ -153,7 +153,7 @@ export default function SeasonCarousel({ activo = true }) {
               <Isotipo className="h-full w-full" />
             </Spin>
 
-            <div className="relative flex h-full flex-col items-center justify-center px-6 pb-40 pt-8 text-center sm:px-12 sm:pb-44">
+            <div className="relative flex h-full flex-col items-center justify-center px-6 pb-10 pt-8 text-center sm:px-12 sm:pb-44">
               <span className="mb-6 inline-flex w-fit items-center rounded-full border border-gris/25 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-gris/80">
                 Un programa de FIC · Udelar
               </span>
