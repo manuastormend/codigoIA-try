@@ -40,7 +40,7 @@ export default function ThemeSection() {
             clic en cualquiera para ver los programas de ese tema.
           </span>
           <span className="lg:hidden">
-            Tocá un tema y entrá directo a sus programas.
+            Elegí un tema que te interese.
           </span>
         </p>
 

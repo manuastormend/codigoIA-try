@@ -74,7 +74,7 @@ function Episodio({ episodio, numero }) {
       </h3>
       <Texto className="mt-3 text-sm leading-relaxed text-noche/70">{episodio.resumen}</Texto>
       <span className="mt-4 inline-flex items-center gap-2 pt-1 text-sm font-medium transition-colors group-hover:text-azul">
-        Ver programa <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+        Ver <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
       </span>
     </RouterLink>
   );

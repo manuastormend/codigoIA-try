@@ -34,7 +34,7 @@ export default function ThemePage({ id }) {
           <PageHeader conVolver={false} />
           <div className="mx-auto max-w-4xl px-6 py-24 text-center sm:px-10">
             <p className={`${ETIQUETA} text-lima`}>/No encontrado</p>
-            <h1 className="mt-4 font-display text-3xl font-medium sm:text-5xl">
+            <h1 className="mt-4 font-display text-2xl font-medium sm:text-3xl lg:text-5xl">
               Uy, acá no hay nada.
             </h1>
           </div>
@@ -87,11 +87,11 @@ function Contenido({ tema }) {
               <span className={`${ETIQUETA} mb-5 inline-block text-lila`}>
                 /Tema
               </span>
-              <h1 className="mb-4 font-display text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl">
+              <h1 className="mb-4 font-display text-3xl font-semibold leading-[1.02] tracking-tight sm:text-4xl lg:text-6xl">
                 <span className="text-lima">{tema.nombre}</span>
               </h1>
               {tema.descripcion && (
-                <p className="max-w-2xl text-lg text-gris/80 sm:text-xl">
+                <p className="max-w-2xl text-base text-gris/80 sm:text-lg lg:text-xl">
                   {tema.descripcion}
                 </p>
               )}
@@ -105,7 +105,7 @@ function Contenido({ tema }) {
                           <li key={item.id}>
                             <RouterLink
                               to={`/temas/${item.id}`}
-                              className={`inline-flex min-h-10 items-center rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                              className={`inline-flex min-h-10 items-center rounded-full border px-4 py-2 text-[13px] font-medium lg:text-sm transition-colors duration-200 ${
                                 item.tipo === "tema"
                                   ? "border-lila/50 bg-lila/10 text-lila hover:bg-lila hover:text-noche"
                                   : "border-gris/30 bg-gris/5 text-gris hover:border-lima hover:bg-lima hover:text-noche"
@@ -219,7 +219,7 @@ function TarjetaPrograma({ programa }) {
         </RouterLink>
 
         <div className="md:col-span-8">
-          <h3 className="font-display text-2xl font-semibold leading-[1.1] tracking-tight sm:text-3xl">
+          <h3 className="font-display text-xl font-semibold leading-[1.1] tracking-tight sm:text-2xl lg:text-3xl">
             <RouterLink
               to={`/programa/${programa.id}`}
               className="underline-offset-4 decoration-lima decoration-[3px] hover:underline"
@@ -228,7 +228,7 @@ function TarjetaPrograma({ programa }) {
             </RouterLink>
           </h3>
           {bajada && (
-            <p className="mt-3 line-clamp-3 max-w-[70ch] text-base text-gris/70">
+            <p className="mt-3 line-clamp-3 max-w-[70ch] text-sm text-gris/70 lg:text-base">
               {bajada}
             </p>
           )}

@@ -13,7 +13,7 @@ function Dato({ titulo, children }) {
   return (
     <div>
       <dt className={`${ETIQUETA} text-lima`}>{titulo}</dt>
-      <dd className="mt-1 text-gris/90">{children}</dd>
+      <dd className="mt-1 text-sm text-gris/90 lg:text-base">{children}</dd>
     </div>
   );
 }
@@ -73,11 +73,11 @@ export default function PersonasPage({ persona, onCerrar }) {
           </div>
           <div className="min-w-0">
             <p className={`${ETIQUETA} text-lima`}>/Invitado</p>
-            <h2 className="mt-1 font-display text-3xl font-bold uppercase leading-none tracking-tight sm:text-4xl">
+            <h2 className="mt-1 font-display text-2xl font-bold uppercase leading-none tracking-tight sm:text-3xl lg:text-4xl">
               {persona.nombre}
             </h2>
             {persona.profesion && (
-              <p className="mt-2 text-sm text-gris/75 sm:text-base">{persona.profesion}</p>
+              <p className="mt-2 text-xs text-gris/75 sm:text-sm lg:text-base">{persona.profesion}</p>
             )}
           </div>
         </header>
@@ -91,14 +91,14 @@ export default function PersonasPage({ persona, onCerrar }) {
           {persona.relacionIA && (
             <div>
               <h3 className={`${ETIQUETA} mb-2 text-lima`}>/Relación con la IA</h3>
-              <Texto className="text-gris/85">{persona.relacionIA}</Texto>
+              <Texto className="text-sm text-gris/85 lg:text-base">{persona.relacionIA}</Texto>
             </div>
           )}
 
           {persona.biografia && (
             <div>
               <h3 className={`${ETIQUETA} mb-2 text-lima`}>/Biografía</h3>
-              <Texto className="text-gris/85">{persona.biografia}</Texto>
+              <Texto className="text-sm text-gris/85 lg:text-base">{persona.biografia}</Texto>
             </div>
           )}
 
@@ -130,7 +130,7 @@ export default function PersonasPage({ persona, onCerrar }) {
                     <RouterLink
                       to={`/programa/${programa.id}`}
                       onClick={onCerrar}
-                      className="block rounded-2xl border border-gris/20 px-4 py-3 font-display text-lg font-medium transition-colors hover:border-lima hover:text-lima"
+                      className="block rounded-2xl border border-gris/20 px-4 py-3 font-display text-base font-medium transition-colors lg:text-lg hover:border-lima hover:text-lima"
                     >
                       {programa.titulo}
                     </RouterLink>

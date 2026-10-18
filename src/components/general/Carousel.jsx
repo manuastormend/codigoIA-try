@@ -155,7 +155,7 @@ export default function SeasonCarousel({ activo = true }) {
 
             <div className="relative flex h-full flex-col items-center justify-center px-6 pb-10 pt-8 text-center sm:px-12 sm:pb-44">
               <span className="mb-6 inline-flex w-fit items-center rounded-full border border-gris/25 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-gris/80">
-                Un programa de FIC · Udelar
+                Un proyecto de FIC · Udelar
               </span>
               {/* --eslogan-h2 (0 → 1) lo escribe IntroHeader: el título se desvanece
                   mientras el slogan sale de acá y viaja al header. */}
@@ -171,10 +171,10 @@ export default function SeasonCarousel({ activo = true }) {
               <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
                 <a href="https://www.youtube.com/@ProyectoFIC_codigoIA" className={BTN_PRIMARIO}>
                   <YoutubeIcon />
-                  Mirá los programas
+                  Mirá los episodios
                 </a>
                 <span className="rounded-full border border-gris/25 px-4 py-2 font-mono text-xs uppercase tracking-wider text-gris/70">
-                  +20 programas
+                  +20 episodios
                 </span>
               </div>
             </div>

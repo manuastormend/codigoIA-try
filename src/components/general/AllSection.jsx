@@ -38,7 +38,7 @@ export default function AllSection() {
       <div className="mx-auto max-w-4xl px-6 sm:px-10">
         <p className="mb-4 font-mono text-xs uppercase tracking-widest text-lima">/Temporadas</p>
         <h2 className="font-display text-3xl font-semibold leading-[1.05] tracking-tight sm:text-4xl">
-          Todos los programas
+          Todos los episodios
         </h2>
         <p className="mt-3 max-w-xl text-base text-gris/70">
           Elegí una temporada y metete.<span className="sr-only"> Al abrir una temporada se cierra la otra.</span>

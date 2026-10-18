@@ -120,8 +120,8 @@ export default function ProgramPage({ id }) {
               <div className="mx-auto max-w-6xl px-6 pb-3 pt-6 sm:px-10 sm:pb-4 lg:pb-12">
                 <div className="flex max-w-4xl flex-col gap-5">
                   <span className={`${ETIQUETA} self-start text-lila`}>
-                    /Programa {String(numero).padStart(2, "0")}
-                    {temporada ? ` · ${temporada.titulo}` : ""}
+                    {/* Antes: /Programa NN · Temporada (los programas no están numerados) */}
+                    /{temporada ? temporada.titulo : "Episodio"}
                   </span>
                   <h1 className="font-display text-2xl font-semibold leading-[1.02] tracking-tight sm:text-3xl lg:text-5xl">
                     <TituloResaltado texto={programa.titulo} />
