@@ -13,6 +13,7 @@ import { formatFecha } from "../../servicios/texto";
 import PersonasPage from "../personas/PersonasPage";
 import Footer from "../general/Footer";
 import Orbes from "../utils/Orbes";
+import InvitadosCompactos from "./InvitadosCompactos";
 import PageHeader from "../utils/PageHeader";
 import PersonBadge from "../utils/PersonBadge";
 import RouterLink from "../utils/RouterLink";
@@ -56,14 +57,14 @@ function Desplegable({ titulo, abierto = true, ultimo = false, children }) {
       open={abierto}
       className={`group border-t border-gris/15 ${ultimo ? "border-b" : ""}`}
     >
-      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-xl font-bold sm:text-2xl [&::-webkit-details-marker]:hidden">
+      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-bold sm:text-xl lg:text-2xl [&::-webkit-details-marker]:hidden">
         {titulo}
         <span
           aria-hidden
           className="relative h-[34px] w-[34px] shrink-0 rounded-full bg-lima transition-transform duration-200 group-hover:scale-110 before:absolute before:left-1/2 before:top-1/2 before:h-0.5 before:w-3.5 before:-translate-x-1/2 before:-translate-y-1/2 before:bg-noche before:content-[''] after:absolute after:left-1/2 after:top-1/2 after:h-3.5 after:w-0.5 after:-translate-x-1/2 after:-translate-y-1/2 after:bg-noche after:content-[''] group-open:after:hidden"
         />
       </summary>
-      <div className="pb-6 text-base leading-relaxed text-gris/85 sm:text-[17px]">{children}</div>
+      <div className="pb-6 text-sm leading-relaxed text-gris/85 sm:text-base lg:text-[17px]">{children}</div>
     </details>
   );
 }
@@ -116,22 +117,22 @@ export default function ProgramPage({ id }) {
             <div className="relative">
             <PageHeader conVolver={false} />
             <section>
-              <div className="mx-auto max-w-6xl px-6 pb-10 pt-6 sm:px-10 sm:pb-12">
+              <div className="mx-auto max-w-6xl px-6 pb-3 pt-6 sm:px-10 sm:pb-4 lg:pb-12">
                 <div className="flex max-w-4xl flex-col gap-5">
                   <span className={`${ETIQUETA} self-start text-lila`}>
                     /Programa {String(numero).padStart(2, "0")}
                     {temporada ? ` · ${temporada.titulo}` : ""}
                   </span>
-                  <h1 className="font-display text-3xl font-semibold leading-[1.02] tracking-tight sm:text-5xl">
+                  <h1 className="font-display text-2xl font-semibold leading-[1.02] tracking-tight sm:text-3xl lg:text-5xl">
                     <TituloResaltado texto={programa.titulo} />
                   </h1>
                   {programa.pregunta && (
-                    <p className="max-w-2xl text-xl font-medium leading-snug text-gris/90 sm:text-2xl">
+                    <p className="max-w-2xl text-base font-medium leading-snug text-gris/90 sm:text-lg lg:text-2xl">
                       {programa.pregunta}
                     </p>
                   )}
                   {programa.subtitulo && (
-                    <p className="max-w-2xl text-base text-gris/70">{programa.subtitulo}</p>
+                    <p className="max-w-2xl text-sm text-gris/70 lg:text-base">{programa.subtitulo}</p>
                   )}
                   {(fecha || programa.duracion) && (
                     <div className="inline-flex flex-wrap items-center gap-4 self-start rounded-full border border-gris/20 px-5 py-2.5 font-mono text-xs uppercase tracking-wider">
@@ -149,9 +150,13 @@ export default function ProgramPage({ id }) {
             </div>
             </div>
 
+            {/* Celular y tablet: invitados en tarjetas compactas entre el título y el video
+                (en PC siguen en la columna del costado). */}
+            <InvitadosCompactos invitados={invitados} onAbrir={setPersonaAbierta} />
+
             {/* Video grande + descripción · invitados al costado */}
             <section>
-              <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-10 sm:px-10 lg:grid-cols-12 lg:gap-6">
+              <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-6 sm:px-10 lg:grid-cols-12 lg:pt-10 lg:gap-6">
                 <div className="flex flex-col gap-8 lg:col-span-9">
                   <div className="aspect-video w-full overflow-hidden rounded-3xl border border-gris/15 bg-noche shadow-[0_30px_70px_-30px_rgba(193,114,255,0.5)]">
                     {programa.linkYoutube ? (
@@ -169,7 +174,7 @@ export default function ProgramPage({ id }) {
                     )}
                   </div>
 
-                  <Texto className="max-w-3xl text-xl leading-relaxed text-gris sm:text-[22px]">
+                  <Texto className="max-w-3xl text-base leading-relaxed text-gris sm:text-lg lg:text-[22px]">
                     {programa.resumen}
                   </Texto>
 
@@ -203,7 +208,7 @@ export default function ProgramPage({ id }) {
                     )}
                     {temas.length > 0 && (
                       <div className="border-y border-gris/15 py-6">
-                        <h2 className="mb-4 font-display text-xl font-bold sm:text-2xl">
+                        <h2 className="mb-4 font-display text-lg font-bold sm:text-xl lg:text-2xl">
                           {temas.length > 1 ? "Temas" : "Tema"}
                         </h2>
                         <div className="flex flex-wrap gap-2">
@@ -211,7 +216,7 @@ export default function ProgramPage({ id }) {
                             <RouterLink
                               key={t.id}
                               to={`/temas/${t.id}`}
-                              className="rounded-full border border-lila/50 bg-lila/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-lila transition-colors hover:border-lila hover:bg-lila hover:text-noche"
+                              className="rounded-full border border-lila/50 bg-lila/10 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-lila transition-colors lg:text-xs hover:border-lila hover:bg-lila hover:text-noche"
                             >
                               {t.nombre}
                             </RouterLink>
@@ -224,7 +229,7 @@ export default function ProgramPage({ id }) {
 
                 <aside className="flex flex-col gap-5 lg:col-span-3 lg:col-start-10">
                   {invitados.length > 0 && (
-                    <>
+                    <div className="hidden flex-col gap-5 lg:flex">
                       <h2 className={`${ETIQUETA} text-lima`}>/Invitados</h2>
                       {invitados.map((persona, i) => (
                         <button
@@ -252,7 +257,7 @@ export default function ProgramPage({ id }) {
                           </div>
                         </button>
                       ))}
-                    </>
+                    </div>
                   )}
 
                   {conduccion.length > 0 && (
